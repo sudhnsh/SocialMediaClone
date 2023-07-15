@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, FlatList, Image,Pressable, StyleSheet, Alert, ToastAndroid } from 'react-native';
 
 const ListScreen = ({navigation}) => {
   const [posts, setPosts] = useState([]);
@@ -24,15 +24,17 @@ const ListScreen = ({navigation}) => {
   }
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity accessible={true} accessibilityRole='header' style={styles.postContainer} onPress={handlePostDetails()}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.postImage} source={{ uri: 'https://image.dummyjson.com/150' }} />
+    <Pressable onPress={() => handlePostDetails()}>
+      <View style={styles.postContainer}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.postImage} source={{ uri: 'https://image.dummyjson.com/150' }} />
+        </View>
+        <View style={styles.postContent}>
+          <Text style={styles.postTitle}>{item.title}</Text>
+          <Text style={styles.postBody}>{item.body}</Text>
+        </View>
       </View>
-      <View style={styles.postContent}>
-        <Text style={styles.postTitle}>{item.title}</Text>
-        <Text style={styles.postBody}>{item.body}</Text>
-      </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   return (
